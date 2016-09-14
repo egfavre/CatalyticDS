@@ -16,9 +16,15 @@ public class Factor {
     @Column(nullable = false)
     int input;
 
-    ArrayList factors;
+    @Column(nullable = false)
+    ArrayList <Integer> factorResults;
 
     public Factor() {
+    }
+
+    public Factor(int input, ArrayList<Integer> factorResults) {
+        this.input = input;
+        this.factorResults = factorResults;
     }
 
     public int getId() {
@@ -37,11 +43,11 @@ public class Factor {
         this.input = input;
     }
 
-    public ArrayList getFactors() {
-        return factors;
+    public ArrayList<Integer> getFactorResults() {
+        return factorResults;
     }
 
-    public void setFactors(ArrayList factors) {
-        this.factors = factors;
+    public void setFactorResults(ArrayList<Integer> factorResults) {
+        this.factorResults = factorResults;
     }
 }

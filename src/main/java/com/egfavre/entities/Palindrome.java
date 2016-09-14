@@ -23,6 +23,11 @@ public class Palindrome {
     public Palindrome() {
     }
 
+    public Palindrome(String input, Boolean isPalindrome) {
+        this.input = input;
+        this.isPalindrome = isPalindrome;
+    }
+
     public int getId() {
         return id;
     }

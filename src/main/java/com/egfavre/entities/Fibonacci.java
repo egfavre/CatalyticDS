@@ -22,6 +22,11 @@ public class Fibonacci {
     public Fibonacci() {
     }
 
+    public Fibonacci(int input, ArrayList answerSet) {
+        this.input = input;
+        this.answerSet = answerSet;
+    }
+
     public int getId() {
         return id;
     }
