@@ -1,4 +1,4 @@
-package com.egfavre.repositories;
+package com.egfavre.services;
 
 import com.egfavre.entities.Palindrome;
 import org.springframework.data.repository.CrudRepository;
