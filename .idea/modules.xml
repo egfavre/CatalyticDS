@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CatalyticDS.iml" filepath="$PROJECT_DIR$/.idea/modules/CatalyticDS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CatalyticDS_main.iml" filepath="$PROJECT_DIR$/.idea/modules/CatalyticDS_main.iml" group="CatalyticDS" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CatalyticDS_test.iml" filepath="$PROJECT_DIR$/.idea/modules/CatalyticDS_test.iml" group="CatalyticDS" />
+    </modules>
+  </component>
+</project>
