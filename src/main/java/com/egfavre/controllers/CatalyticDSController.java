@@ -57,6 +57,9 @@ public class CatalyticDSController {
 
     @RequestMapping (path = "/fibonacci", method = RequestMethod.GET)
     public String fibonacciPage (HttpSession session, Model model) {
+        Iterable<Fibonacci> fibonacciList;
+        fibonacciList = fibonaccis.findAll();
+        model.addAttribute("fibonacciList", fibonacciList);
         return "fibonacci";
     }
 
@@ -68,6 +71,12 @@ public class CatalyticDSController {
     @RequestMapping (path = "/factorNumber", method = RequestMethod.POST)
     public String factorNumber (HttpSession session, HttpServletRequest request, int input) throws Exception {
         findFactors(input);
+        return "redirect:" + request.getHeader("Referer");
+    }
+
+    @RequestMapping (path = "/fibonacciNumber", method = RequestMethod.POST)
+    public String fibonacciNumber (HttpSession session, HttpServletRequest request, int input) throws Exception {
+        findFibonacci(input);
         return "redirect:" + request.getHeader("Referer");
     }
 
@@ -88,7 +97,7 @@ public class CatalyticDSController {
     //find the nth value of the standard fibonacci sequence
     public void findFibonacci (int input){
         ArrayList<Integer> answerSet = new ArrayList<>();
-        int nth = 1;
+        int nth = 0;
         int a = 0;
         int b = 1;
         answerSet.add(a);

@@ -5,6 +5,13 @@
     <title>Catalytic Fibonacci</title>
 </head>
 <body>
+<form action="/fibonacciNumber" method="post">
+    <input type="number" name="input">>
+    <button type="submit">Find fibonacci sequence to nth value</button>
+</form>
 
+<ol>{{#fibonacciList}}
+    <li>{{input}}: {{answerSet}}</li>
+    {{/fibonacciList}}</ol>
 </body>
 </html>
