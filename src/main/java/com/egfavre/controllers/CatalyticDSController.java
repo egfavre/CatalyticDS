@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class CatalyticDSController {
             Server.createWebServer().start();
         }
 
+    //add pages in local 8080
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home (HttpSession session) {
         return "home";
@@ -47,6 +49,9 @@ public class CatalyticDSController {
 
     @RequestMapping (path = "/factor", method = RequestMethod.GET)
     public String factorPage (HttpSession session, Model model) {
+        Iterable<Factor> factorlist;
+        factorlist = factors.findAll();
+        model.addAttribute("factorList", factorlist);
         return "factor";
     }
 
@@ -58,6 +63,12 @@ public class CatalyticDSController {
     @RequestMapping (path = "/palindrome", method = RequestMethod.GET)
     public String palindromePage (HttpSession session, Model model) {
         return "palindrome";
+    }
+
+    @RequestMapping (path = "/factorNumber", method = RequestMethod.POST)
+    public String factorNumber (HttpSession session, HttpServletRequest request, int input) throws Exception {
+        findFactors(input);
+        return "redirect:" + request.getHeader("Referer");
     }
 
     //find factors of the input
