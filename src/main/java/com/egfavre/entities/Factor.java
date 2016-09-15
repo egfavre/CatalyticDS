@@ -13,16 +13,16 @@ public class Factor {
     @GeneratedValue
     int id;
 
-    @Column(nullable = false, length = 100000)
+    @Column(nullable = false)
     int input;
 
-    @Column(nullable = false, length = 100000)
-    ArrayList <Integer> factorResults;
+    @Column(nullable = false, length = 10000)
+    String factorResults;
 
     public Factor() {
     }
 
-    public Factor(int input, ArrayList<Integer> factorResults) {
+    public Factor(int input, String factorResults) {
         this.input = input;
         this.factorResults = factorResults;
     }
@@ -43,11 +43,11 @@ public class Factor {
         this.input = input;
     }
 
-    public ArrayList<Integer> getFactorResults() {
+    public String getFactorResults() {
         return factorResults;
     }
 
-    public void setFactorResults(ArrayList<Integer> factorResults) {
+    public void setFactorResults(String factorResults) {
         this.factorResults = factorResults;
     }
 }

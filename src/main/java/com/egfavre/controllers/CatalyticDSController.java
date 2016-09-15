@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Created by user on 9/13/16.
@@ -92,34 +93,38 @@ public class CatalyticDSController {
 
     //find factors of the input
     public void findFactors (int input){
-        ArrayList<Integer> factorResults = new ArrayList<Integer>();
+        ArrayList<Integer> factorResultsList = new ArrayList<Integer>();
         int start = 1;
         while (start <= input){
             if (input % start == 0){
-                factorResults.add(start);
+                factorResultsList.add(start);
             }
             start++;
         }
+        String factorResults = factorResultsList.stream().map(Object::toString)
+                .collect(Collectors.joining(", "));
         Factor factor = new Factor(input, factorResults);
         factors.save(factor);
     }
 
     //find the nth value of the standard fibonacci sequence
     public void findFibonacci (int input){
-        ArrayList<Integer> answerSet = new ArrayList<>();
+        ArrayList<Integer> answerSetList = new ArrayList<>();
         int nth = 0;
         int a = 0;
         int b = 1;
-        answerSet.add(a);
-        answerSet.add(b);
+        answerSetList.add(a);
+        answerSetList.add(b);
         while (input >= nth){
             int c = a + b;
             a = b;
             b = c;
-            answerSet.add(c);
+            answerSetList.add(c);
             nth++;
         }
-        Fibonacci fibonacci = new Fibonacci(input, answerSet);
+        String answerSet = answerSetList.stream().map(Object::toString)
+                .collect(Collectors.joining(", "));
+ ;       Fibonacci fibonacci = new Fibonacci(input, answerSet);
         fibonaccis.save(fibonacci);
     }
 

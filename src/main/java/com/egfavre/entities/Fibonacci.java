@@ -16,13 +16,13 @@ public class Fibonacci {
     @Column(nullable = false)
     int input;
 
-    @Column(nullable = false)
-    ArrayList answerSet;
+    @Column(nullable = false, length = 1000000000)
+    String answerSet;
 
     public Fibonacci() {
     }
 
-    public Fibonacci(int input, ArrayList answerSet) {
+    public Fibonacci(int input, String answerSet) {
         this.input = input;
         this.answerSet = answerSet;
     }
@@ -43,11 +43,11 @@ public class Fibonacci {
         this.input = input;
     }
 
-    public ArrayList getAnswerSet() {
+    public String getAnswerSet() {
         return answerSet;
     }
 
-    public void setAnswerSet(ArrayList answerSet) {
+    public void setAnswerSet(String answerSet) {
         this.answerSet = answerSet;
     }
 }
