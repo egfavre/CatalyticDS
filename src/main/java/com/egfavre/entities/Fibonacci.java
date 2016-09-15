@@ -2,6 +2,7 @@ package com.egfavre.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by user on 9/13/16.
@@ -16,15 +17,15 @@ public class Fibonacci {
     @Column(nullable = false)
     int input;
 
-    @Column(nullable = false, length = 1000000000)
-    String answerSet;
+    @Column(nullable = false)
+    Integer answer;
 
     public Fibonacci() {
     }
 
-    public Fibonacci(int input, String answerSet) {
+    public Fibonacci(int input, Integer answer) {
         this.input = input;
-        this.answerSet = answerSet;
+        this.answer = answer;
     }
 
     public int getId() {
@@ -43,11 +44,11 @@ public class Fibonacci {
         this.input = input;
     }
 
-    public String getAnswerSet() {
-        return answerSet;
+    public Integer getAnswer() {
+        return answer;
     }
 
-    public void setAnswerSet(String answerSet) {
-        this.answerSet = answerSet;
+    public void setAnswer(Integer answer) {
+        this.answer = answer;
     }
 }

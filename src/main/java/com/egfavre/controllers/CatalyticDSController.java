@@ -8,6 +8,7 @@ import com.egfavre.services.FibonacciRepository;
 import com.egfavre.services.PalindromeRepository;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.info.InfoProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,9 @@ import javax.servlet.http.HttpSession;
 import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -59,9 +63,25 @@ public class CatalyticDSController {
 
     @RequestMapping (path = "/fibonacci", method = RequestMethod.GET)
     public String fibonacciPage (HttpSession session, Model model) {
-        Iterable<Fibonacci> fibonacciList;
-        fibonacciList = fibonaccis.findAll();
+        Iterable<Fibonacci> fibonacciList = fibonaccis.findAll();
+        ArrayList<Integer> inputValues = new ArrayList<>();
+        for (Fibonacci fib : fibonacciList) {
+            if (!inputValues.contains(fib.getInput())) {
+                inputValues.add(fib.getInput());
+            }
+        }
+        HashMap<Integer, ArrayList> finalFibSeqs = new HashMap<>();
+        for (Integer inputValue:inputValues) {
+            Iterable<Fibonacci> fib = fibonaccis.findByInput(inputValue);
+            ArrayList<Integer> fibSeq = new ArrayList<>();
+            for (Fibonacci thisFib:fib) {
+                fibSeq.add(thisFib.getAnswer());
+            }
+            finalFibSeqs.put(inputValue, fibSeq);
+        }
+        int mostRecent = Integer.valueOf(String.valueOf(fibonaccis.count()));
         model.addAttribute("fibonacciList", fibonacciList);
+        model.addAttribute("finalFibSeqs", finalFibSeqs);
         return "fibonacci";
     }
 
@@ -109,23 +129,21 @@ public class CatalyticDSController {
 
     //find the nth value of the standard fibonacci sequence
     public void findFibonacci (int input){
-        ArrayList<Integer> answerSetList = new ArrayList<>();
         int nth = 0;
         int a = 0;
         int b = 1;
-        answerSetList.add(a);
-        answerSetList.add(b);
+        Fibonacci fibonacciA= new Fibonacci(input, a);
+        Fibonacci fibonacciB = new Fibonacci(input, b);
+        fibonaccis.save(fibonacciA);
+        fibonaccis.save(fibonacciB);
         while (input >= nth){
             int c = a + b;
             a = b;
             b = c;
-            answerSetList.add(c);
+            Fibonacci fibonacci = new Fibonacci(input, c);
+            fibonaccis.save(fibonacci);
             nth++;
         }
-        String answerSet = answerSetList.stream().map(Object::toString)
-                .collect(Collectors.joining(", "));
- ;       Fibonacci fibonacci = new Fibonacci(input, answerSet);
-        fibonaccis.save(fibonacci);
     }
 
     //Is text a palindrome?
