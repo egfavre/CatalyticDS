@@ -18,13 +18,17 @@ public class Palindrome {
     String input;
 
     @Column(nullable = false)
+    String reverse;
+
+    @Column(nullable = false)
     Boolean isPalindrome;
 
     public Palindrome() {
     }
 
-    public Palindrome(String input, Boolean isPalindrome) {
+    public Palindrome(String input, String reverse, Boolean isPalindrome) {
         this.input = input;
+        this.reverse = reverse;
         this.isPalindrome = isPalindrome;
     }
 

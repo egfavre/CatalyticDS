@@ -13,10 +13,10 @@ public class Factor {
     @GeneratedValue
     int id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 100000)
     int input;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 100000)
     ArrayList <Integer> factorResults;
 
     public Factor() {

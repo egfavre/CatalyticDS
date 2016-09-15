@@ -5,6 +5,13 @@
     <title>Catalytic Palindrome</title>
 </head>
 <body>
+<form action="/palindromeButton" method="post">
+    <input type="text" name="input">>
+    <button type="submit">Is this a palindrome?</button>
+</form>
 
+<ol>{{#palindromeList}}
+    <li>{{input}}: {{reverse}}:  {{isPalindrome}}</li>
+    {{/palindromeList}}</ol>
 </body>
 </html>

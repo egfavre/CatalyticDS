@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -65,6 +66,9 @@ public class CatalyticDSController {
 
     @RequestMapping (path = "/palindrome", method = RequestMethod.GET)
     public String palindromePage (HttpSession session, Model model) {
+        Iterable<Palindrome> palindromeList;
+        palindromeList = palindromes.findAll();
+        model.addAttribute("palindromeList", palindromeList);
         return "palindrome";
     }
 
@@ -77,6 +81,12 @@ public class CatalyticDSController {
     @RequestMapping (path = "/fibonacciNumber", method = RequestMethod.POST)
     public String fibonacciNumber (HttpSession session, HttpServletRequest request, int input) throws Exception {
         findFibonacci(input);
+        return "redirect:" + request.getHeader("Referer");
+    }
+
+    @RequestMapping (path = "/palindromeButton", method = RequestMethod.POST)
+    public String palindromeButton (HttpSession session, HttpServletRequest request, String input) throws Exception {
+        findPalindrome(input);
         return "redirect:" + request.getHeader("Referer");
     }
 
@@ -115,13 +125,13 @@ public class CatalyticDSController {
 
     //Is text a palindrome?
     public void findPalindrome (String input){
-        String finalInput = input.replaceAll("^[^\\p{L}^\\p{N}\\s%]+|[^\\p{L}^\\p{N}\\s%]+$", "");
+        String finalInput = input.replaceAll("\\s+","");
         StringBuilder reverseBuilder = new StringBuilder();
         reverseBuilder.append(finalInput);
         reverseBuilder = reverseBuilder.reverse();
         String reverse = String.valueOf(reverseBuilder);
         Boolean isPalindrome = finalInput.equals(reverse);
-        Palindrome palindrome = new Palindrome(input, isPalindrome);
+        Palindrome palindrome = new Palindrome(input, reverse, isPalindrome);
         palindromes.save(palindrome);
     }
 
