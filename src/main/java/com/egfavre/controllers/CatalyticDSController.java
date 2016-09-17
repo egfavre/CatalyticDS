@@ -79,7 +79,6 @@ public class CatalyticDSController {
             }
             finalFibSeqs.put(inputValue, fibSeq);
         }
-        int mostRecent = Integer.valueOf(String.valueOf(fibonaccis.count()));
         model.addAttribute("fibonacciList", fibonacciList);
         model.addAttribute("finalFibSeqs", finalFibSeqs);
         return "fibonacci";
@@ -127,28 +126,31 @@ public class CatalyticDSController {
         factors.save(factor);
     }
 
-    //find the nth value of the standard fibonacci sequence
-    public void findFibonacci (int input){
-        int nth = 0;
-        int a = 0;
-        int b = 1;
-        Fibonacci fibonacciA= new Fibonacci(input, a);
-        Fibonacci fibonacciB = new Fibonacci(input, b);
-        fibonaccis.save(fibonacciA);
-        fibonaccis.save(fibonacciB);
-        while (input >= nth){
-            int c = a + b;
-            a = b;
-            b = c;
-            Fibonacci fibonacci = new Fibonacci(input, c);
-            fibonaccis.save(fibonacci);
-            nth++;
+    //find the fibonacci sequence to the nth value
+    public void findFibonacci (int input) {
+        int count = fibonaccis.findByInput(input).size();
+        if (count == 0) {
+            int nth = 3;
+            int a = 0;
+            int b = 1;
+            Fibonacci fibonacciA = new Fibonacci(input, a);
+            Fibonacci fibonacciB = new Fibonacci(input, b);
+            fibonaccis.save(fibonacciA);
+            fibonaccis.save(fibonacciB);
+            while (input >= nth) {
+                int c = a + b;
+                a = b;
+                b = c;
+                Fibonacci fibonacci = new Fibonacci(input, c);
+                fibonaccis.save(fibonacci);
+                nth++;
+            }
         }
     }
 
     //Is text a palindrome?
     public void findPalindrome (String input){
-        String finalInput = input.replaceAll("\\s+","");
+        String finalInput = input.replaceAll("\\W", "");
         StringBuilder reverseBuilder = new StringBuilder();
         reverseBuilder.append(finalInput);
         reverseBuilder = reverseBuilder.reverse();
