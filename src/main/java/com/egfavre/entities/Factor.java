@@ -16,7 +16,7 @@ public class Factor {
     @Column(nullable = false)
     int input;
 
-    @Column(nullable = false, length = 10000)
+    @Column(length = 10000)
     String factorResults;
 
     public Factor() {

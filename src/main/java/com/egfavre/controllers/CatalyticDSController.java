@@ -49,12 +49,12 @@ public class CatalyticDSController {
 
     //add pages in local 8080
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home (HttpSession session) {
+    public String home () {
         return "home";
     }
 
     @RequestMapping (path = "/factor", method = RequestMethod.GET)
-    public String factorPage (HttpSession session, Model model) {
+    public String factorPage (Model model) {
         Iterable<Factor> factorlist;
         factorlist = factors.findAll();
         model.addAttribute("factorList", factorlist);
@@ -62,7 +62,7 @@ public class CatalyticDSController {
     }
 
     @RequestMapping (path = "/fibonacci", method = RequestMethod.GET)
-    public String fibonacciPage (HttpSession session, Model model) {
+    public String fibonacciPage (Model model) {
         Iterable<Fibonacci> fibonacciList = fibonaccis.findAll();
         ArrayList<Integer> inputValues = new ArrayList<>();
         for (Fibonacci fib : fibonacciList) {
@@ -86,7 +86,7 @@ public class CatalyticDSController {
     }
 
     @RequestMapping (path = "/palindrome", method = RequestMethod.GET)
-    public String palindromePage (HttpSession session, Model model) {
+    public String palindromePage (Model model) {
         Iterable<Palindrome> palindromeList;
         palindromeList = palindromes.findAll();
         model.addAttribute("palindromeList", palindromeList);
@@ -94,19 +94,19 @@ public class CatalyticDSController {
     }
 
     @RequestMapping (path = "/factorNumber", method = RequestMethod.POST)
-    public String factorNumber (HttpSession session, HttpServletRequest request, int input) throws Exception {
+    public String factorNumber (HttpServletRequest request, int input) throws Exception {
         findFactors(input);
         return "redirect:" + request.getHeader("Referer");
     }
 
     @RequestMapping (path = "/fibonacciNumber", method = RequestMethod.POST)
-    public String fibonacciNumber (HttpSession session, HttpServletRequest request, int input) throws Exception {
+    public String fibonacciNumber (HttpServletRequest request, int input) throws Exception {
         findFibonacci(input);
         return "redirect:" + request.getHeader("Referer");
     }
 
     @RequestMapping (path = "/palindromeButton", method = RequestMethod.POST)
-    public String palindromeButton (HttpSession session, HttpServletRequest request, String input) throws Exception {
+    public String palindromeButton (HttpServletRequest request, String input) throws Exception {
         findPalindrome(input);
         return "redirect:" + request.getHeader("Referer");
     }

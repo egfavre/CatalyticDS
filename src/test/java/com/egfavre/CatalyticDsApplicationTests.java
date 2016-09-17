@@ -102,12 +102,20 @@ public class CatalyticDsApplicationTests {
 
 	@Test
 	public void factorNumber() throws Exception {
+		mockMvc.perform(
+				MockMvcRequestBuilders.post("/factorNumber" + 4)
+		);
 
+		Assert.assertTrue(factors.findByInput(4) != null);
 	}
 
 	@Test
 	public void fibonacciNumber() throws Exception {
+		mockMvc.perform(
+				MockMvcRequestBuilders.post("/fibonacciNumber" + 4)
+		);
 
+		Assert.assertTrue(fibonaccis.findByInput(4) != null);
 	}
 
 	@Test
@@ -120,19 +128,4 @@ public class CatalyticDsApplicationTests {
 
 		Assert.assertTrue(palindromes.findByInput("race car") != null);
 	}
-
-	@Test
-	public void findFactors() throws Exception {
-	}
-
-	@Test
-	public void findFibonacci() throws Exception {
-
-	}
-
-	@Test
-	public void findPalindrome() throws Exception {
-
-	}
-
 }
